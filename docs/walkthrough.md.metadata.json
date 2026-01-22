@@ -1,6 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary": "Walkthrough of the FULLLY DISTRIBUTED Async ADMM implementation (Ring Topology) including Adaptive Penalty (Rho) analysis. Contains 5-panel results: Primal, Dual, Cost, Rho, and Formation.",
-  "updatedAt": "2026-01-21T09:29:33.193506656Z",
-  "version": "7"
-}
