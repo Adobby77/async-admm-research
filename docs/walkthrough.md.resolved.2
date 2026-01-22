@@ -1,0 +1,41 @@
+# Walkthrough - Async Distributed ADMM (Paper Implementation)
+
+I have implemented the **Delay-Aware Consensus ADMM** algorithm based on the paper "Asynchronous Distributed Multi-Robot Motion Planning Under Imperfect Communication".
+
+## Implementation Details
+
+### Core Logic: [async_admm_paper.py](file:///home/sriv/async_admm_paper.py)
+- **Agent Class**: Implements local trajectory optimization using `scipy.optimize.minimize`.
+    - **Adaptive Penalty (Eq 16)**: $\rho_{ij} = \frac{\rho_{base}}{1 + d_{ij}}$
+    - **Local Solver (Eq 17)**: Optimizes trajectory $x_i$ to minimize local cost + weighted consensus terms.
+- **AsyncSimulator Class**:
+    - Simulates random communication delays ($d_{ij} \in [0, d_{max}]$).
+    - Aggregates global belief $z$ using weighted averaging (Eq 23).
+    - Updates dual variables (Eq 24).
+
+### Simulation Scenario: [demo_async_paper.py](file:///home/sriv/demo_async_paper.py)
+- **Scenario**: 3 Robots performing a "Rendezvous" (Consensus) task.
+- **Environment**: 2D space, discrete time $K=10$ horizon.
+- **Delays**: 80% probability of delay, up to 5 steps.
+
+## Verification Results
+
+### Convergence
+
+I compared the proposed **Adaptive Penalty** method against the **Standard ADMM** (fixed penalty).
+
+![Async ADMM Results](/home/sriv/.gemini/antigravity/brain/0a70ce2c-1475-4383-ad64-915702d87cf4/async_admm_results.png)
+
+#### Observations
+- **Standard ADMM (Red)**: Tends to force consensus aggressively. In high-delay environments, this can lead to oscillating or "jumpy" trajectories because it trusts stale data too much. The residual drops faster initially but may be unstable.
+- **Proposed Adaptive ADMM (Blue)**: Intentionally relaxes the consensus constraint when data is old ($\rho$ decreases). This allows the agent to prioritize its own smooth dynamics/cost over matching outdated neighbors, theoretically leading to more robust behavior.
+
+In the short simulation run (30 steps):
+- **Adaptive**: Residual decreased from 15.48 to 12.50.
+- **Standard**: Residual decreased from 15.48 to 12.02.
+
+While Standard ADMM minimized the *mathematical* residual slightly more in this simplified setup, the **Adaptive** method demonstrates the mechanic of "Trust Regulation"—trusting fresh data more than stale data.
+
+## Code Availability
+- **Source Code**: [async_admm_paper.py](file:///home/sriv/async_admm_paper.py)
+- **Demo Script**: [demo_async_paper.py](file:///home/sriv/demo_async_paper.py)

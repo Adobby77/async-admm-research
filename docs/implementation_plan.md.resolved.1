@@ -1,0 +1,22 @@
+# Implementation Plan - ADMM Visualization
+
+Add visualization capabilities to [demo.py](file:///home/sriv/demo.py) to show convergence behavior.
+
+## User Review Required
+> [!NOTE]
+> This requires `matplotlib` to be installed in the environment.
+
+## Proposed Changes
+
+### [MODIFY] [demo.py](file:///home/sriv/demo.py)
+- **Import `matplotlib.pyplot`**.
+- **Add plotting code**:
+    - Plot 1: Primal and Dual Residuals over iterations (log scale).
+    - Plot 2: Objective value over iterations.
+    - Plot 3: Estimated coefficients vs True coefficients.
+
+## Verification Plan
+
+### Manual Verification
+- Run `python3 demo.py`.
+- Verify that `convergence_plot.png` is created.

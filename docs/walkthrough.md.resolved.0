@@ -1,0 +1,47 @@
+# Walkthrough - ADMM Lasso Implementation
+
+I have implemented the Alternating Direction Method of Multipliers (ADMM) algorithm to solve the Lasso regression problem.
+
+## changes
+
+### Core Solver: [admm_lasso.py](file:///home/sriv/admm_lasso.py)
+- Implemented [ADMMLasso](file:///home/sriv/admm_lasso.py#3-98) class.
+- Uses Cholesky decomposition for efficient $x$ updates.
+- Uses soft thresholding for $z$ updates.
+- Tracks primal and dual residuals for convergence.
+
+### Demo Script: [demo.py](file:///home/sriv/demo.py)
+- Generates synthetic sparse data (50 samples, 100 features, 5 active).
+- Runs the ADMM solver.
+- Compares results with the ground truth and `sklearn.linear_model.Lasso`.
+
+## Verification Results
+
+I ran the [demo.py](file:///home/sriv/demo.py) script to verify the implementation.
+
+### Convergence
+The algorithm converged successfully.
+```
+Converged at iteration 782
+ADMM finished in 0.0997 seconds.
+Final objective: 2.7454
+```
+
+### Accuracy
+The estimated coefficients closely match the true signal.
+```
+MSE vs True Signal: 0.000086
+Top 10 estimated coefficients by magnitude:
+Index  70: True=0.8250, Est=0.7571
+Index  93: True=-0.7486, Est=-0.7060
+Index  77: True=0.3776, Est=0.3692
+Index  38: True=-0.3779, Est=-0.3561
+Index  45: True=0.2690, Est=0.2625
+```
+
+### Comparison with Scikit-Learn
+The result is practically identical to Scikit-Learn's Lasso implementation.
+```
+Sklearn MSE vs True Signal: 0.000086
+MSE ADMM vs Sklearn: 0.000000
+```
