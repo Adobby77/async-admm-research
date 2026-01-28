@@ -49,6 +49,16 @@ This repository contains simulations for various **Distributed ADMM (Alternating
     python3 SRAD-ADMM-II.py
     ```
 
+## 📈 Visual Results
+
+### 1. Overall Comparison (0-5s)
+This plot allows you to compare the convergence speed of all algorithms, including the synchronous CC-ADMM.
+![Overall Comparison](results/Combined_Comparison_5s.png)
+
+### 2. Async Variants Zoom-in (0-0.3s)
+A detailed look at the initial convergence of the Straggler-Resilient algorithms. Note the rapid updates of the SRAD variants compared to the step-wise updates of SR-ADMM.
+![Async Zoom-in](results/Combined_Comparison_0.3s_Async.png)
+
 ## 📊 Results Summary
 
 *   **CC-ADMM** suffers significantly from stragglers, showing very slow progress in wall-clock time.
