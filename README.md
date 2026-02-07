@@ -65,7 +65,7 @@ This metric shows how the global objective value decreases with the number of co
 *   **Observation**: All algorithms reduce the objective function value effectively. Standard ADMM (CC-ADMM) often requires fewer *iterations* to reach a certain accuracy because it waits for full synchronization, ensuring high-quality updates at each step. SRAD-ADMM variants may take more iterations due to the use of stale or partial gradients, but they do not block progress.
 
 ### 2. Convergence vs. Iteration ($\epsilon^k$)
-This plot shows the relative error $\left\lVert \mathbf{z}^k - \mathbf{z}^*\right\rVert  \left\lVert\mathbf{z}^*\right\rVert$ against iterations.
+This plot shows the relative error $\left\lVert\mathbf{z}^k-\mathbf{z}^*\right\rVert / \left\lVert\mathbf{z}^*\right\rVert$ against iterations.
 
 ![Convergence Rate](src/results/fig_convergence.png)
 
